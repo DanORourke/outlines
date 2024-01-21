@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-bs-theme="dark"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <form role="form" method="post" th:action="@{|/library/${outlineDto.id}/update|}" th:object="${outlineDto}">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text"
+                           id="title"
+                           th:field="*{title}"
+                           th:placeholder="${outlineDto.title}"
+                           autocomplete="off"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="summary">Summary:</label>
+                    <input type="text"
+                           id="summary"
+                           th:field="*{summary}"
+                           th:placeholder="${outlineDto.summary}"
+                           autocomplete="off"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="birthOrder">Order:</label>
+                    <input type="text"
+                           id="birthOrder"
+                           th:field="*{birthOrder}"
+                           th:placeholder="${outlineDto.birthOrder}"
+                           autocomplete="off"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea type="text"
+                              rows="4"
+                              id="content"
+                              th:field="*{content}"
+                              th:placeholder="${outlineDto.content}"
+                              class="form-control"
+                              autocomplete="off">
+
+          </textarea>
+                    <script>
+            tinymce.init({
+              selector: '#content'
+            });
+          </script>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+<div th:replace="~{layout :: footer}"></div>
+</html>

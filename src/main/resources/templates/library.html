@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-bs-theme="dark"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+<div class="container">
+    <div class="col-sm-12 mt-5">
+        <div th:each="outlineDto : ${outlineDtoList}">
+            <div class="card">
+                <div class="card-body">
+                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{/library/{uuid} (uuid=${outlineDto.topParentId})}"><h5 class="card-title" th:text="${outlineDto.title}"></h5></a>
+                    <p class="card-text" th:text="${outlineDto.summary}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="~{layout :: footer}"></div>
+</html>

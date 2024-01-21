@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-bs-theme="dark"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head></head>
+<body>
+<div th:fragment="recursion(children)" class="container mr-0 pr-0" >
+  <div  th:each="layer : ${children}">
+    <div class="accordion mr-0 pr-0" th:id="${layer.parent.id}" >
+      <div class="accordion-item mr-0 pr-0">
+        <h2 class="accordion-header" th:id="'heading' + ${layer.parent.id}">
+          <button class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  th:data-bs-target="'#collapse' + ${layer.parent.id}"
+                  aria-expanded="true"
+                  th:aria-controls="'collapse' + ${layer.parent.id}">
+            <div class="d-flex flex-column">
+              <h5 th:text="${layer.parent.title}"></h5>
+              <div th:text="${layer.parent.summary}"></div>
+            </div>
+          </button>
+        </h2>
+        <div th:id="'collapse' + ${layer.parent.id}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${layer.parent.id}" th:data-bs-parent="'#' + ${layer.parent.id}">
+          <div class="accordion-body" th:utext="${layer.parent.id}"></div>
+          <div class="accordion-body" th:utext="${layer.parent.contentHTML}"></div>
+          <div><a th:href="@{|/library/${layer.parent.id}/update|}">Update</a> |
+            <a th:href="@{|/library/${layer.parent.id}/createChild/${layer.parent.topParentId}|}">Create Child</a> |
+            <a th:href="@{|/library/${layer.parent.id}/delete|}">Delete</a></div>
+          <div th:replace="~{outline-fragment :: recursion(children=${layer.children})}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
